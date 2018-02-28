@@ -27,6 +27,8 @@ task wrapper(type: Wrapper){
 test{
 
     useTestNG(){
+//        listeners << 'io.github.sskorol.core.DataProviderTransformer'
+        listeners << 'core.WebDriverListener'
         suites 'src/test/resources/smoke-suite.xml'
     }
 }

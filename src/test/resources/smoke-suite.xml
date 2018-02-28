@@ -1,18 +1,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <!--это все CurrentXmlTest-->
-<suite name="Smoke">
+<suite name="Smoke" parallel="tests" thread-count="2">
     <!--паралельно-->
     <!--parallel="methods" -->
     <!--в два потока-->
     <!--thread-count="2"-->
 
 
-
     <!--// test - группа тестов? имя должно буть униакльным отличным от suite-->
-    <test name="Chrome group">
+    <test name="Chrome group 1">
 
-       <!--// <parameter name="browser" value="chrome"/>-->
+        <!--// <parameter name="browser" value="chrome"/>-->
 
         <!--// классы тестов-->
         <classes>
@@ -20,10 +19,19 @@
             <class name="io.github.testCases.GoogleTest">
 
                 <!--<methods>-->
-                    <!--<include name="userShouldBeAuthorizedWithValidCredentials"/>-->
+                <!--<include name="userShouldBeAuthorizedWithValidCredentials"/>-->
                 <!--</methods>-->
             </class>
         </classes>
 
     </test>
+
+    <test name="Chrome group 2">
+        <classes>
+            <class name="io.github.testCases.GoogleTest">
+            </class>
+        </classes>
+
+    </test>
+
 </suite>
