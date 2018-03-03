@@ -12,8 +12,10 @@ repositories {
 dependencies {
     compile('org.testng:testng:6.12',
            'org.seleniumhq.selenium:selenium-java:3.7.1',
-            // webdrivermanager облегачает работу с вебдрайверами, надо скачивать и  указывать путь
-            'io.github.bonigarcia:webdrivermanager:1.7.2'
+            // webdrivermanager облегачает работу с вебдрайверами, не надо скачивать и  указывать путь
+            'io.github.bonigarcia:webdrivermanager:1.7.2',
+//для работы с пропертями
+            'org.aeonbits.owner:owner-java8:1.0.9'
     )
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -27,8 +29,8 @@ task wrapper(type: Wrapper){
 test{
 
     useTestNG(){
-//        listeners << 'io.github.sskorol.core.DataProviderTransformer'
-        listeners << 'core.WebDriverListener'
+//        listeners << 'io.github.sskorol.io.cod.core.DataProviderTransformer'
+        listeners << 'io.cod.core.WebDriverListener'
         suites 'src/test/resources/smoke-suite.xml'
     }
 }

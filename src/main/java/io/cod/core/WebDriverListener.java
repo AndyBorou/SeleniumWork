@@ -1,4 +1,4 @@
-package core;
+package io.cod.core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +36,7 @@ public class WebDriverListener implements IInvokedMethodListener {
             Optional.ofNullable(getDriver()).ifPresent(WebDriver::quit);
         //    DRIVER_CONTAINER.get().quit();
 //            driver.quit();
+            DRIVER_CONTAINER.remove();
         }
     }
 
