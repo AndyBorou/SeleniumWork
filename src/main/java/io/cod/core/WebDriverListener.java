@@ -3,6 +3,7 @@ package io.cod.core;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
@@ -22,7 +23,9 @@ public class WebDriverListener implements IInvokedMethodListener {
         if (method.isTestMethod()) {
             WebDriverManager.getInstance(ChromeDriver.class).setup();
 //            driver = new ChromeDriver();
+            //final FirefoxDriver chromeDriver = new FirefoxDriver();
             final ChromeDriver chromeDriver = new ChromeDriver();
+
             // time out
             chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
