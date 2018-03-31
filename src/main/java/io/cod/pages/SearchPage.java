@@ -3,6 +3,7 @@ package io.cod.pages;
 import io.cod.BaseConfig;
 import io.cod.core.BasePage;
 import io.cod.core.WaitCondition;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -13,7 +14,7 @@ import static io.cod.BaseConfig.BASE_CONFIG;
 import static io.cod.core.WaitCondition.enabled;
 import static io.cod.core.WaitCondition.present;
 import static io.cod.core.WaitCondition.visible;
-import static io.cod.core.WebDriverListener.getDriver;
+//import static io.cod.core.WebDriverListener.getDriver;
 
 
 public class SearchPage extends BasePage {
@@ -26,6 +27,7 @@ public class SearchPage extends BasePage {
     @FindBy(css = "lst-ib")
     private WebElement wInputSearch;
 
+    @Step("Search for \"{text}\".")
     public SearchPage searchFor(final String text) {
         // wInputSearch.sendKeys(text);
 //      final WebDriverWait wait = new WebDriverWait(getDriver(), BASE_CONFIG.waittimeOut());
@@ -38,10 +40,15 @@ public class SearchPage extends BasePage {
 //        type2(inputsearch, text, ExpectedConditions::presenceOfElementLocated);
 //        type2(inputsearch, text);
 
-        type3(inputsearch, text + Keys.ENTER);
+//        type3(inputsearch, text + Keys.ENTER);
+//
+//        type3(inputsearch, text, visible);
+//        type3(inputsearch, text, present);
 
-        type3(inputsearch, text, visible);
-        type3(inputsearch, text, present);
+        type4(inputsearch, text + Keys.ENTER);
+
+        type4(inputsearch, text, visible);
+        type4(inputsearch, text, present);
 
         return this;
     }
@@ -68,8 +75,7 @@ public class SearchPage extends BasePage {
     }
 
     @Override
-    public String url() {
+    public String url(){
         return BASE_CONFIG.url();
-    }
-
+    };
 }

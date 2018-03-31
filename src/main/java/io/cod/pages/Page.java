@@ -1,12 +1,19 @@
 package io.cod.pages;
 
-import one.util.streamex.StreamEx;
+
+import io.cod.BaseConfig;
+
+import static io.cod.BaseConfig.BASE_CONFIG;
 
 public interface Page {
 
-    Page navigateTo();
+    default Page navigateTo(){
+       return navigateTo(url());
+    }
+
+    Page navigateTo(String url);
 
     default String url(){
-        return "http://localhost";
+        return BASE_CONFIG.url();
     };
 }

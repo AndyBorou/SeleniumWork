@@ -2,9 +2,12 @@ package io.github.testCases;
 
 import io.cod.BaseConfig;
 import io.cod.core.PageFactoty;
+import io.qameta.allure.*;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import io.cod.pages.SearchPage;
 
@@ -12,7 +15,7 @@ import io.cod.pages.SearchPage;
 import static io.cod.BaseConfig.BASE_CONFIG;
 import static io.cod.core.PageFactoty.at;
 import static io.cod.core.PageFactoty.open;
-import static io.cod.core.WebDriverListener.getDriver;
+//import static io.cod.core.WebDriverListener.getDriver;
 import static org.testng.Assert.assertEquals;
 
 public class GoogleTest { //extends BaseTest {
@@ -30,7 +33,7 @@ public class GoogleTest { //extends BaseTest {
 //    }
 
     @Test
-    public void test1(){
+    public void test1() {
         // WebDriverManager сам скачиваает указанный драйвер
         //getDriver().get("https://www.google.com");
         //получение переменной окружения из настройек запуска тестнг,градле
@@ -51,18 +54,35 @@ public class GoogleTest { //extends BaseTest {
                 .searchFor("auto");
 
         // assertEquals(getDriver().findElements(By.cssSelector("#rso h3 > a")).size(), 13);
-
         assertEquals(at(SearchPage.class).getLinksAmount(), 13);
-      }
+    }
 
-    @Test
-    public void test2(){
+    @Test(description = "should search for keyword")
+    //подключение аллюра
+    @Feature("Search")
+    @Story("Implemented search functionality")
+    @Issue("35")
+    @TmsLink("35")
+    @Severity(SeverityLevel.BLOCKER)
+
+    public void test2() {
 
         open(SearchPage.class)
                 .searchFor("auto");
 
 
+    }
 
+    //for example allure logging
+
+    @Test
+    public void skippingTest() {
+        throw new SkipException("No implemented");
+    }
+
+    @Test
+    public void infoStractureIssuetest() {
+        throw new RuntimeException("Environment is not available");
     }
 
 }

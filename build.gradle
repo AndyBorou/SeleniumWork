@@ -1,3 +1,7 @@
+plugins{
+    id 'io.qameta.allure' version '2.5'
+}
+
 group 'SeleniumWork'
 version '0.0.1'
 
@@ -5,11 +9,19 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+//for allure
+configurations {
+    agent
+}
+
 repositories {
     jcenter()
 }
 
 dependencies {
+    //for allure
+    agent 'org.aspectj:aspectjweaver:1.8.10'
+
     compile('org.testng:testng:6.12',
            'org.seleniumhq.selenium:selenium-java:3.7.1',
             // webdrivermanager облегачает работу с вебдрайверами, не надо скачивать и  указывать путь
@@ -19,7 +31,11 @@ dependencies {
             'org.projectlombok:lombok:1.16.18',
             'one.util:streamex:0.6.6',
             //joor - для рефлексион
-            'org.jooq:joor:0.9.6'
+            'org.jooq:joor:0.9.6',
+
+            'io.github.sskorol:webdriver-supplier:0.7.1',
+//reporting fraymwork для составления отчета logging
+            'io.qameta.allure:allure-testng:2.0-BETA21'
     )
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -29,12 +45,34 @@ dependencies {
 task wrapper(type: Wrapper){
     gradleVersion '4.3.1'
 }
+//for logging allure \src\test\resources\config
+task copyConfig(type: Copy){
+    from  'src/test/resources/config'
+    into 'build/allure-results'
+}
+//for logging allure
+test.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
 
 test{
 
     useTestNG(){
 //        listeners << 'io.github.sskorol.io.cod.core.DataProviderTransformer'
-        listeners << 'io.cod.core.WebDriverListener'
+//        listeners << 'io.cod.core.WebDriverListener'
+        listeners << 'io.github.sskorol.listeners.BeforeMethodListener'
         suites 'src/test/resources/smoke-suite.xml'
     }
+
+    //настройки к аллуру
+    systemProperty 'allure.result.directory', 'build/allure-results'
+    systemProperty 'allure.link.issue.pattern', 'https://github.com/sskorol/test-data-supplier/issues/{}'
+    systemProperty 'allure.link.tms.pattern', 'https://github.com/sskorol/test-data-supplier/issues/{}'
+}
+
+test.dependsOn copyConfig
+
+allure {
+    autoconfigure = true
+    version = '2.4.1'
 }

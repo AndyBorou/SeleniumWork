@@ -11,6 +11,7 @@ public class PageFactoty {
 
     @SuppressWarnings("unchecked")
     public static <T extends BasePage> T open(final Class<T> pageClass){
+
         return (T) at(pageClass).navigateTo();
     }
 
